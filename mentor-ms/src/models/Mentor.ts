@@ -1,8 +1,13 @@
 import mongoose, { type Document } from 'mongoose'
+import bcrypt from 'bcrypt'
 
 // Define the Mentor schema
 const mentorSchema = new mongoose.Schema({
   name: {
+    type: String,
+    required: true
+  },
+  password: {
     type: String,
     required: true
   },
@@ -85,6 +90,25 @@ export interface IMentor extends Document {
   verified: boolean
   rating: number
   students: any
+}
+
+// Hash the password before saving it to the database
+mentorSchema.pre('save', async function (next) {
+  if (this.isModified('password') === false) return next()
+
+  try {
+    const salt = await bcrypt.genSalt(10)
+    const hashedPassword = await bcrypt.hash(this.password, salt)
+    this.password = hashedPassword
+    next()
+  } catch (error: any) {
+    next(error)
+  }
+})
+
+// Method to compare a password with the hashed password in the database
+mentorSchema.methods.comparePassword = async function (password: string) {
+  return await bcrypt.compare(password, this.password)
 }
 
 // Create and export the Mentor model

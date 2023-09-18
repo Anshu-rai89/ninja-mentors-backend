@@ -1,5 +1,5 @@
 import { type Request, type Response, type NextFunction } from 'express'
-import logger from '@configs/logger'
+import logger from '../configs/logger'
 // Define an async error handling middleware
 const asyncErrorHandler = (
   error: Error,

@@ -1,12 +1,14 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import express from 'express'
 import { body } from 'express-validator'
-import { createMentor } from '@controllers/mentor'
+import { createMentor, getVerifiedMentors } from '../controllers/mentor'
 
 const router = express.Router()
 
 // Validation middleware for the mentor creation request
 const mentorValidationRules = [
   body('name').isString().trim().notEmpty(),
+  body('password').isString().trim().notEmpty().isLength({ min: 5, max: 10 }),
   body('email').isEmail().normalizeEmail(),
   body('degree').isString().trim().notEmpty(),
   body('college').isString().trim().notEmpty(),
@@ -20,8 +22,7 @@ const mentorValidationRules = [
   body('skills').isArray()
 ]
 
-// Create a new mentor
-// eslint-disable-next-line @typescript-eslint/no-misused-promises
-router.post('/mentors', mentorValidationRules, createMentor)
+router.post('/mentor', mentorValidationRules, createMentor)
+router.get('/mentor', getVerifiedMentors)
 
 export default router

@@ -1,6 +1,6 @@
 import express from 'express'
-import routes from '@routes/index'
-import asyncErrorHandler from '@middleware/errorHandler'
+import routes from './routes'
+import asyncErrorHandler from './middleware/errorHandler'
 import cors from 'cors'
 
 const app = express()
