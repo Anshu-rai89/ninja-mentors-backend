@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata: 
+  name: mentor-ms-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mentor-ms
+  template: 
+    metadata:
+      labels:
+        app: mentor-ms
+    spec:
+      containers:
+        - name: mentor-ms
+          image: 89910907/mentor-ms
+          env:
+            - name: MONGO_URI
+              value: mongodb://mentor-ms-mongo-svc:27017/mentor
+
+---
+
+apiVersion: v1
+kind: Service 
+
+metadata:
+  name: mentor-ms-svc
+spec:
+  selector:
+    app: mentor-ms
+  ports:
+    - name: mentor-ms
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata: 
+  name: mentor-ms-mongo-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mentor-ms-mongo
+  template: 
+    metadata:
+      labels:
+        app: mentor-ms-mongo
+    spec:
+      containers:
+        - name: mentor-ms-mongo
+          image: mongo
+
+---
+
+apiVersion: v1ss
+kind: Service 
+
+metadata:
+  name: mentor-ms-mongo-svc
+spec:
+  selector:
+    app: mentor-ms-mongo
+  ports:
+    - name: db
+      protocol: TCP
+      port: 27017
+      targetPort: 27017
