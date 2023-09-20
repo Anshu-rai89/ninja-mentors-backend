@@ -75,6 +75,7 @@ const mentorSchema = new mongoose.Schema({
 export interface IMentor extends Document {
   name: string
   email: string
+  password: string
   avatar: string
   degree: string
   college: string
@@ -94,7 +95,7 @@ export interface IMentor extends Document {
 
 // Hash the password before saving it to the database
 mentorSchema.pre('save', async function (next) {
-  if (this.isModified('password') === false) return next()
+  if (!this.isModified('password')) { next(); return }
 
   try {
     const salt = await bcrypt.genSalt(10)
