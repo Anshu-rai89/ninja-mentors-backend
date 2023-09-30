@@ -16,9 +16,9 @@ const corsOptions = {
 app.use(cors(corsOptions))
 app.use(express.json())
 app.use(asyncErrorHandler)
-app.use('/api/v1', routes)
-app.get('/health', (req, res) => {
-  res.send('Hello, TypeScript Express!')
+app.use('/mentor/api/v1', routes)
+app.get('/mentor/health', (req, res) => {
+  res.send('Hello, From Mentor MS!')
 })
 
 export default app

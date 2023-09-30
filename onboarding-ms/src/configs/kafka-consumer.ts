@@ -2,7 +2,7 @@
 import kafka from './kafka-client'
 import logger from './logger'
 
-const consumer = kafka.consumer({ groupId: 'test-group' })
+const consumer = kafka.consumer({ groupId: 'onboarding' })
 
 async function consumeData () {
   try {

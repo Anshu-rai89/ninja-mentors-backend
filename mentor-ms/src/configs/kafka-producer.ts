@@ -9,7 +9,7 @@ const setupProducer = async () => {
     await producer.connect()
     logger.info('Connected to kafka producer')
   } catch (error: any) {
-    logger.error('Error connecting to kafka producer', error)
+    logger.error(`Error connecting to kafka producer ${error}`)
   }
 }
 

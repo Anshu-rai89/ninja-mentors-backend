@@ -13,7 +13,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions))
 app.use(express.json())
-app.get('/health', (req, res) => {
+app.get('/onboarding/health', (req, res) => {
   res.send('Hello, From Onboarding Ms')
 })
 

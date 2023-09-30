@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment 
 metadata: 
-  name: mentor-ms-depl
+  name: onboarding-ms-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mentor-ms
+      app: onboarding-ms
   template: 
     metadata:
       labels:
-        app: mentor-ms
+        app: onboarding-ms
     spec:
       containers:
-        - name: mentor-ms
-          image: 89910907/mentor-ms
+        - name: onboarding-ms
+          image: 89910907/onboarding-ms
           env:
-            - name: MONGO_URI
-              value: mongodb://mentor-ms-mongo-svc:27017/mentor
+            - name: BROKER
+              value: kafka-service:9092
 
 ---
 
@@ -25,12 +25,12 @@ apiVersion: v1
 kind: Service 
 
 metadata:
-  name: mentor-ms-svc
+  name: onboarding-ms-svc
 spec:
   selector:
-    app: mentor-ms
+    app: onboarding-ms
   ports:
-    - name: mentor-ms
+    - name: onboarding-ms
       protocol: TCP
       port: 3000
       targetPort: 3000

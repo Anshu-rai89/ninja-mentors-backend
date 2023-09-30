@@ -10,10 +10,17 @@ spec:
     - host: ninja-mentors.dev
       http:
         paths:
-          - path: /
+          - path: /mentor
             pathType: Prefix
             backend:
               service:
                 name: mentor-ms-svc
+                port:
+                  number: 3000
+          - path: /onboarding
+            pathType: Prefix
+            backend:
+              service:
+                name: onboarding-ms-svc
                 port:
                   number: 3000
