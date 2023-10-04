@@ -16,6 +16,8 @@ spec:
         - name: onboarding-ms
           image: 89910907/onboarding-ms
           env:
+            - name: MONGO_URI
+              value: mongodb://onboarding-ms-mongo-svc:27017/onboarding
             - name: BROKER
               value: kafka-service:9092
 
