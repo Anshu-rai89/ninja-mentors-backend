@@ -2,14 +2,15 @@
 import kafka from './kafka-client'
 import logger from './logger'
 import Mentor, { type IMentor } from '../model/Mentor'
+import { MENTOR_CREATED } from 'src/events'
 
 const consumer = kafka.consumer({ groupId: 'onboarding' })
 
 async function consumeData () {
   try {
-    await consumer.subscribe({ topic: 'mentor-created', fromBeginning: true })
+    await consumer.subscribe({ topic: MENTOR_CREATED, fromBeginning: true })
     await consumer.run({
-      eachMessage: async ({ topic, partition, message }) => {
+      eachMessage: async ({ message }) => {
         const {
           name,
           avatar,

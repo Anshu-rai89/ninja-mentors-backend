@@ -18,7 +18,7 @@ app.use(express.json())
 app.get('/onboarding/health', (req, res) => {
   res.send('Hello, From Onboarding Ms')
 })
-app.use('/', routes)
+app.use('/onboarding/api/v1', routes)
 app.use(errorHandler)
 
 export default app
