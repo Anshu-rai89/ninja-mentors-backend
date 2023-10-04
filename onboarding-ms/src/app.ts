@@ -1,5 +1,7 @@
 import express from 'express'
 import cors from 'cors'
+import { errorHandler } from './middlewares'
+import routes from './routes'
 
 const app = express()
 const corsOptions = {
@@ -16,5 +18,7 @@ app.use(express.json())
 app.get('/onboarding/health', (req, res) => {
   res.send('Hello, From Onboarding Ms')
 })
+app.use('/', routes)
+app.use(errorHandler)
 
 export default app
