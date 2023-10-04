@@ -2,7 +2,8 @@
 import Mentor from '../model/Mentor'
 import { type Request, type Response, type NextFunction } from 'express'
 import { producer } from '../configs/kafka-producer'
-import { MENTOR_UPDATED } from 'src/events'
+import { MENTOR_UPDATED } from '../events'
+import logger from '../configs/logger'
 
 export const getAllMentors = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -31,10 +32,12 @@ export const verifyMentor = async (req: Request, res: Response, next: NextFuncti
     mentor.verified = true
     mentor.onborded = true
     await mentor.save()
+
+    logger.info(`Mentor updated event ${JSON.stringify(mentor)}`)
     await producer.send({
       topic: MENTOR_UPDATED,
       messages: [
-        { value: JSON.stringify(mentor) }
+        { value: JSON.stringify({ email: mentor.email, verified: true, onborded: true }) }
       ]
     })
     return res.status(200).json({
